@@ -5,7 +5,11 @@ describe CssCutter do
   it 'removes unnecessary white space' do
     cutter = CssCutter.new fixture('whitespace.css')
     cutter.output.should == fixture('whitespace.min.css')
-  end  
+  end
+  it 'removes trailing semicolons' do
+    cutter = CssCutter.new fixture('semicolon.css')
+    cutter.output.should == fixture('semicolon.min.css')
+  end
   it 'removes comments' do
     cutter = CssCutter.new fixture('comment.css')
     cutter.output.should == fixture('comment.min.css')
