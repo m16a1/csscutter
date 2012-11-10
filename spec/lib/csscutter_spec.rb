@@ -10,6 +10,10 @@ describe CssCutter do
     cutter = CssCutter.new fixture('semicolon.css')
     cutter.output.should == fixture('semicolon.min.css')
   end
+  it 'removes empty selectors' do
+    cutter = CssCutter.new fixture('empty_selector.css')
+    cutter.output.should == fixture('empty_selector.min.css')
+  end
   it 'removes comments' do
     cutter = CssCutter.new fixture('comment.css')
     cutter.output.should == fixture('comment.min.css')

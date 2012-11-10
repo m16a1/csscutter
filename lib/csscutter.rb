@@ -6,8 +6,9 @@ class CssCutter
   def initialize(input)
     @output = input
     remove_whitespace
-    remove_trailing_semicolons
     remove_comments
+    remove_trailing_semicolons
+    remove_empty_selectors
     @output
   end
 
@@ -21,6 +22,10 @@ class CssCutter
 
   def remove_trailing_semicolons
     @output.gsub! ';}', '}'
+  end
+
+  def remove_empty_selectors
+    @output.gsub! /[^\}]+\{\}/, ''
   end
 
   def remove_comments
