@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe CssCutter do
-  it { should have_constant(:VERSION) }
-  
+  specify { CssCutter.should have_constant(:VERSION) }
+  it 'removes comments' do
+    cutter = CssCutter.new fixture('comment.css')
+    cutter.output.should == fixture('comment.min.css')
+  end
 end

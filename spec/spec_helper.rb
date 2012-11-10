@@ -12,4 +12,8 @@ RSpec::Matchers.define :have_constant do |const|
   end
 end
 
+def fixture(file)
+  open("spec/fixtures/#{file}").read
+end
+
 require 'csscutter'
