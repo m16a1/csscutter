@@ -10,6 +10,7 @@ class CssCutter
     remove_trailing_semicolons
     remove_empty_selectors
     remove_units_after_zero
+    replace_zeros
     @output
   end
 
@@ -41,5 +42,9 @@ class CssCutter
       (?=[;\s\}])
     }x
     @output.gsub! regex, '0'
+  end
+
+  def replace_zeros
+    @output.gsub! /:(0 )+0(?=[;\s\}])/, ':0'
   end
 end
