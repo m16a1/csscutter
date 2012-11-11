@@ -9,6 +9,7 @@ class CssCutter
     remove_comments
     remove_trailing_semicolons
     remove_empty_selectors
+    remove_units_after_zero
     @output
   end
 
@@ -17,7 +18,7 @@ class CssCutter
     @output.gsub! /\s+/, ' '
     @output.gsub! /\s*\{\s*/, '{'
     @output.gsub! /\s*\}\s*/, '}'
-    @output.gsub! /(\S):\s(\S)/, '\1:\2'
+    @output.gsub! /(\S)\s?:\s?(\S)/, '\1:\2'
   end
 
   def remove_trailing_semicolons
@@ -30,5 +31,15 @@ class CssCutter
 
   def remove_comments
     @output.gsub! /\/\*.*?\*\//, ''
+  end
+
+  def remove_units_after_zero
+    regex = %r{
+      (?<=[:\s])
+      0
+      (px|em|%|in|cm|mm|ex|pt|pc|ch|rem|vw|vh|vmin|vmax|deg|rad|grad|turn|s|ms)
+      (?=[;\s\}])
+    }x
+    @output.gsub! regex, '0'
   end
 end

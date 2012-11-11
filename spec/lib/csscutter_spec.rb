@@ -18,4 +18,8 @@ describe CssCutter do
     cutter = CssCutter.new fixture('comment.css')
     cutter.output.should == fixture('comment.min.css')
   end
+  it 'removes units after zero' do
+    cutter = CssCutter.new fixture('zero_and_units.css')
+    cutter.output.should == fixture('zero_and_units.min.css')
+  end
 end
