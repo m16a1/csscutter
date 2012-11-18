@@ -5,7 +5,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
-require 'csscutter'
+require 'csscutter/version'
 
 task :gem => :build
 task :build do

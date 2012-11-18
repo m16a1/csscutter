@@ -1,5 +1,5 @@
 require 'date'
-require './lib/csscutter'
+require './lib/csscutter/version'
 
 Gem::Specification.new do |s|
   s.name        = 'csscutter'
