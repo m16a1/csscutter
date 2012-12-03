@@ -3,14 +3,21 @@ require 'csscutter/cleaner'
 require 'csscutter/simplifier'
 
 module CssCutter
-  def self.run(code)
-    clean_code = CssCutter::Cleaner.new(code)
+  def self.optimize(code)
+    simplify clean(code)
+  end
+
+  def self.clean(code)
+    CssCutter::Cleaner.new(code)
       .remove_whitespace
       .remove_trailing_semicolons
       .remove_empty_selectors
       .remove_comments
       .remove_units_after_zero
-    CssCutter::Simplifier.new(clean_code)
+  end
+
+  def self.simplify(code)
+    CssCutter::Simplifier.new(code)
       .replace_zeros
   end
 end

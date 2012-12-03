@@ -19,21 +19,28 @@ describe CssCutter do
     simplifier.stub(:replace_zeros).and_return(empty_simplifier)
   end
 
-  it 'calls all cleaner methods' do
+  it '#clean calls all cleaner methods' do
     cleaner.should_receive(:remove_whitespace).once
     cleaner.should_receive(:remove_trailing_semicolons).once
     cleaner.should_receive(:remove_empty_selectors).once
     cleaner.should_receive(:remove_comments).once
     cleaner.should_receive(:remove_units_after_zero).once
-    CssCutter.run ''
+    CssCutter.clean ''
   end
 
-  it 'calls all simplifier methods' do
+  it '#simplify calls all simplifier methods' do
     simplifier.should_receive(:replace_zeros).once
-    CssCutter.run ''
+    CssCutter.simplify ''
   end
 
-  it '#run should return string-compatible value' do
-    CssCutter.run('').should be_a_kind_of String
+  context '#optimize' do
+    it 'calls #clean and #simplifier methods'do
+      CssCutter.should_receive(:clean).once.and_return('')
+      CssCutter.should_receive(:simplify).once.and_return('')
+      CssCutter.optimize ''
+    end
+    it 'returns string-compatible value' do
+      CssCutter.optimize('').should be_a_kind_of String
+    end
   end
 end
