@@ -7,6 +7,9 @@ describe CssCutter do
   let(:empty_simplifier) { CssCutter::Simplifier.new('') }
   let(:simplifier) { CssCutter::Simplifier.any_instance }
 
+  let(:empty_fixer) { CssCutter::Fixer.new('') }
+  let(:fixer) { CssCutter::Fixer.any_instance }
+
   before do
     cleaner.stub(:remove_whitespace).and_return(empty_cleaner)
     cleaner.stub(:remove_trailing_semicolons).and_return(empty_cleaner)
@@ -17,6 +20,10 @@ describe CssCutter do
 
   before do
     simplifier.stub(:replace_zeros).and_return(empty_simplifier)
+  end
+
+  before do
+    fixer.stub(:add_missing_semicolons).and_return(empty_fixer)
   end
 
   it '#clean calls all cleaner methods' do
@@ -33,10 +40,16 @@ describe CssCutter do
     CssCutter.simplify ''
   end
 
+  it '#fix calls all fixer methods' do
+    fixer.should_receive(:add_missing_semicolons).once
+    CssCutter.fix ''
+  end
+
   context '#optimize' do
-    it 'calls #clean and #simplifier methods'do
+    it 'calls #clean, #simplifier and #fix methods'do
       CssCutter.should_receive(:clean).once.and_return('')
       CssCutter.should_receive(:simplify).once.and_return('')
+      CssCutter.should_receive(:fix).once.and_return('')
       CssCutter.optimize ''
     end
     it 'returns string-compatible value' do

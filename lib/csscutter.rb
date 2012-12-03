@@ -1,10 +1,11 @@
 require 'csscutter/version'
+require 'csscutter/fixer'
 require 'csscutter/cleaner'
 require 'csscutter/simplifier'
 
 module CssCutter
   def self.optimize(code)
-    simplify clean(code)
+    simplify clean(fix(code))
   end
 
   def self.clean(code)
@@ -19,5 +20,10 @@ module CssCutter
   def self.simplify(code)
     CssCutter::Simplifier.new(code)
       .replace_zeros
+  end
+
+  def self.fix(code)
+    CssCutter::Fixer.new(code)
+      .add_missing_semicolons
   end
 end
