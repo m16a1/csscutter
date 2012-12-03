@@ -12,6 +12,11 @@ describe CssCutter::Cleaner do
       code.remove_whitespace.should == 'a{color:red;}'
     end
 
+    it "doesn't remove space before pseudoselectors" do
+      code = subject.new 'a {color: red} u :hover {color: red}'
+      code.remove_whitespace.should == 'a{color:red}u :hover{color:red}'
+    end
+
     it 'trailing semicolon' do
       code = subject.new 'a{color:#f00;}'
       code.remove_trailing_semicolons.should == 'a{color:#f00}'
