@@ -36,10 +36,5 @@ describe CssCutter::Cleaner do
       code = subject.new '/* comment */'
       code.remove_comments.should == ''
     end
-
-    it 'units after zero' do
-      code = subject.new 'body{margin:10px 0px}'
-      code.remove_units_after_zero.should == 'body{margin:10px 0}'
-    end
   end
 end

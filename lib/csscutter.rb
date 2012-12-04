@@ -14,11 +14,11 @@ module CssCutter
       .remove_trailing_semicolons
       .remove_empty_selectors
       .remove_comments
-      .remove_units_after_zero
   end
 
   def self.simplify(code)
     CssCutter::Simplifier.new(code)
+      .remove_units_after_zero
       .replace_zeros
   end
 

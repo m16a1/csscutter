@@ -16,4 +16,8 @@ describe CssCutter::Simplifier do
       code.replace_zeros.should == 'body{margin:0}'
     end
   end
+  it 'removes units after zero' do
+    code = subject.new 'body{margin:10px 0px}'
+    code.remove_units_after_zero.should == 'body{margin:10px 0}'
+  end
 end
