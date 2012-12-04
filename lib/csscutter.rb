@@ -12,8 +12,8 @@ module CssCutter
     CssCutter::Cleaner.new(code)
       .remove_whitespace
       .remove_trailing_semicolons
-      .remove_empty_selectors
       .remove_comments
+      .remove_empty_selectors
   end
 
   def self.simplify(code)

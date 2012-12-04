@@ -30,7 +30,12 @@ task :release => :build do
 end
 
 RSpec::Core::RakeTask.new('spec') do |spec|
-  spec.rspec_opts = %w(--format d --color --profile)
+  spec.rspec_opts = %w(--format d --color --profile --tag ~performance)
+  spec.pattern = 'spec/**/*_spec.rb'
+end
+
+RSpec::Core::RakeTask.new('performance') do |spec|
+  spec.rspec_opts = %w(--format d --color --profile --tag performance)
   spec.pattern = 'spec/**/*_spec.rb'
 end
 

@@ -27,9 +27,15 @@ describe CssCutter::Cleaner do
       code.remove_trailing_semicolons.should == 'a{color:#f00}'
     end
 
-    it 'empty selectors' do
-      code = subject.new 'body{color:#000}p { }u{color: #f00}'
-      code.remove_empty_selectors.should == 'body{color:#000}u{color: #f00}'
+    context 'empty selectors' do
+      it 'at beginning' do
+        code = subject.new ' p { }u{color: #f00}'
+        code.remove_empty_selectors.should == 'u{color: #f00}'
+      end
+      it 'at middle' do
+        code = subject.new 'body{color:#000}p { }u{color: #f00}'
+        code.remove_empty_selectors.should == 'body{color:#000}u{color: #f00}'
+      end
     end
 
     it 'comments' do

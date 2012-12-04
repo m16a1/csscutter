@@ -12,7 +12,8 @@ class CssCutter::Cleaner < String
   end
 
   def remove_empty_selectors
-    gsub /[^\}]+\{\s*\}/, ''
+    gsub(/\A[^\{]+\{\s*\}/, '')
+    .gsub /\}[^\}]+\{\s*\}/, '}'
   end
 
   def remove_comments

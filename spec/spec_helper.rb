@@ -1,9 +1,12 @@
 require 'rspec'
 require 'simplecov'
+require 'csscutter'
 
 SimpleCov.start do
   add_group 'Libraries', 'lib'
-  add_group 'Specs', 'spec'
+  add_group 'Unit tests', 'spec/unit'
+  add_group 'Performance tests', 'spec/performance'
+  add_group 'Integration tests', 'spec/integration'
 end
 
 RSpec::Matchers.define :have_constant do |const|
@@ -12,8 +15,4 @@ RSpec::Matchers.define :have_constant do |const|
   end
 end
 
-def fixture(file)
-  open("spec/fixtures/#{file}").read
-end
 
-require 'csscutter'
