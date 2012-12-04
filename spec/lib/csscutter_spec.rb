@@ -22,6 +22,7 @@ describe CssCutter do
     simplifier.should_receive(:replace_zeros).once.and_return(empty_simplifier)
     simplifier.should_receive(:remove_units_after_zero).once.and_return(empty_simplifier)
     simplifier.should_receive(:convert_rgb_to_hex).once.and_return(empty_simplifier)
+    simplifier.should_receive(:minify_hex).once.and_return(empty_simplifier)
     CssCutter.simplify ''
   end
 

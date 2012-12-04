@@ -19,6 +19,10 @@ class CssCutter::Simplifier < String
     end
   end
 
+  def minify_hex
+    gsub /\#(\h)\1(\h)\2(\h)\3/, '#\1\2\3'
+  end
+
   private
   def dec_to_hex(number)
     "%02x" % number.to_i

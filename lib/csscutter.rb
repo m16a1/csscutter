@@ -21,6 +21,7 @@ module CssCutter
       .remove_units_after_zero
       .replace_zeros
       .convert_rgb_to_hex
+      .minify_hex
   end
 
   def self.fix(code)

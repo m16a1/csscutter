@@ -24,4 +24,12 @@ describe CssCutter::Simplifier do
     code = subject.new 'a {color: rgb(15, 128, 255)}'
     code.convert_rgb_to_hex.should == 'a {color: #0f80ff}'
   end
+  context '#minify_hex' do
+    it 'converts repeated hex numbers to 3-chars representation' do
+      code = subject.new 'a {color: #00ff33}'
+      code.minify_hex.should == 'a {color: #0f3}'
+    end
+  end
+  it '#minify_floats'
+  it '#replace_none_value_with_zero'
 end
