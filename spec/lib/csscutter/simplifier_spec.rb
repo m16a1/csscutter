@@ -44,5 +44,8 @@ describe CssCutter::Simplifier do
       code.minify_floats.should == '.a0.6em { }'
     end
   end
-  it '#replace_none_value_with_zero'
+  it '#replace_none_value_with_zero replaces something like "border: none" with "border: 0"' do
+    code = subject.new 'div {background: none}'
+    code.replace_none_value_with_zero.should == 'div {background: 0}'
+  end
 end

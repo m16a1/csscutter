@@ -23,6 +23,7 @@ module CssCutter
       .convert_rgb_to_hex
       .minify_hex
       .minify_floats
+      .replace_none_value_with_zero
   end
 
   def self.fix(code)

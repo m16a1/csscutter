@@ -27,6 +27,9 @@ class CssCutter::Simplifier < String
     gsub /(\s|:)0.(\d)/, '\1.\2'
   end
 
+  def replace_none_value_with_zero
+    gsub /((\{|;)\s*\w+\s*):(\s*)none(\s*(;|\}))/, '\1:\30\4'
+  end
 
   private
   def dec_to_hex(number)
