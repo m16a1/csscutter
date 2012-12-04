@@ -10,38 +10,23 @@ describe CssCutter do
   let(:empty_fixer) { CssCutter::Fixer.new('') }
   let(:fixer) { CssCutter::Fixer.any_instance }
 
-  before do
-    cleaner.stub(:remove_whitespace).and_return(empty_cleaner)
-    cleaner.stub(:remove_trailing_semicolons).and_return(empty_cleaner)
-    cleaner.stub(:remove_empty_selectors).and_return(empty_cleaner)
-    cleaner.stub(:remove_comments).and_return(empty_cleaner)
-  end
-
-  before do
-    simplifier.stub(:replace_zeros).and_return(empty_simplifier)
-    simplifier.stub(:remove_units_after_zero).and_return(empty_simplifier)
-  end
-
-  before do
-    fixer.stub(:add_missing_semicolons).and_return(empty_fixer)
-  end
-
   it '#clean calls all cleaner methods' do
-    cleaner.should_receive(:remove_whitespace).once
-    cleaner.should_receive(:remove_trailing_semicolons).once
-    cleaner.should_receive(:remove_empty_selectors).once
-    cleaner.should_receive(:remove_comments).once
+    cleaner.should_receive(:remove_whitespace).once.and_return(empty_cleaner)
+    cleaner.should_receive(:remove_trailing_semicolons).once.and_return(empty_cleaner)
+    cleaner.should_receive(:remove_empty_selectors).once.and_return(empty_cleaner)
+    cleaner.should_receive(:remove_comments).once.and_return(empty_cleaner)
     CssCutter.clean ''
   end
 
   it '#simplify calls all simplifier methods' do
-    simplifier.should_receive(:replace_zeros).once
-    simplifier.should_receive(:remove_units_after_zero).once
+    simplifier.should_receive(:replace_zeros).once.and_return(empty_simplifier)
+    simplifier.should_receive(:remove_units_after_zero).once.and_return(empty_simplifier)
+    simplifier.should_receive(:convert_rgb_to_hex).once.and_return(empty_simplifier)
     CssCutter.simplify ''
   end
 
   it '#fix calls all fixer methods' do
-    fixer.should_receive(:add_missing_semicolons).once
+    fixer.should_receive(:add_missing_semicolons).once.and_return(empty_fixer)
     CssCutter.fix ''
   end
 

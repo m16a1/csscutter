@@ -12,4 +12,15 @@ class CssCutter::Simplifier < String
     }x
     gsub regex, '0'
   end
+
+  def convert_rgb_to_hex
+    gsub /rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/ do |match|
+      '#' + dec_to_hex($1) + dec_to_hex($2) + dec_to_hex($3)
+    end
+  end
+
+  private
+  def dec_to_hex(number)
+    "%02x" % number.to_i
+  end
 end
