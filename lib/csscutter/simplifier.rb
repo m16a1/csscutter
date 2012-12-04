@@ -23,6 +23,11 @@ class CssCutter::Simplifier < String
     gsub /\#(\h)\1(\h)\2(\h)\3/, '#\1\2\3'
   end
 
+  def minify_floats
+    gsub /(\s|:)0.(\d)/, '\1.\2'
+  end
+
+
   private
   def dec_to_hex(number)
     "%02x" % number.to_i
