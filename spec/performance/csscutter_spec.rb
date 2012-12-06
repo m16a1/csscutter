@@ -7,7 +7,7 @@ describe CssCutter do
     RubyProf.start
     CssCutter.optimize css_code
     result = RubyProf.stop
-    printer = RubyProf::GraphPrinter.new(result)
-    printer.print(STDOUT, {})
+    printer = ::RubyProf::GraphPrinter.new result
+    printer.print STDOUT, {}
   end
 end

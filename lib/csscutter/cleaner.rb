@@ -4,7 +4,7 @@ class CssCutter::Cleaner < String
       .gsub(/\s+/, ' ')
       .gsub(/\s*\{\s*/, '{')
       .gsub(/\s*\}\s*/, '}')
-      .gsub(/(\{[^\}]*)(\S)\s?:\s?(\S)/, '\1\2:\3')
+      .gsub(/(\{[^\}]*)(\S)\s*:\s*/, '\1\2:')
   end
 
   def remove_trailing_semicolons
@@ -17,6 +17,6 @@ class CssCutter::Cleaner < String
   end
 
   def remove_comments
-    gsub /\/\*.*?\*\//, ''
+    gsub /\/\*[^!].*?\*\//, ''
   end
 end

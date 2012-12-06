@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe CssCutter::Cleaner do
   subject { CssCutter::Cleaner }
-  context 'remove' do
-    it 'unnecessary white space' do
+
+  context '#remove_whitespace' do
+    it 'removes unnecessary white space' do
       code = subject.new <<-CSS
       a {
         color: red;
@@ -11,36 +12,42 @@ describe CssCutter::Cleaner do
       CSS
       code.remove_whitespace.should == 'a{color:red;}'
     end
-
     it "doesn't remove space before pseudoselectors" do
       code = subject.new 'a {color: red} u :hover {color: red}'
       code.remove_whitespace.should == 'a{color:red}u :hover{color:red}'
     end
+  end
 
-    it 'trailing semicolon' do
+  context '#remove_trailing_semicolons' do
+    it 'removes trailing semicolon' do
       code = subject.new 'a{color:#f00;}'
       code.remove_trailing_semicolons.should == 'a{color:#f00}'
     end
-
-    it 'some of trailing semicolons' do
+    it 'removes many trailing semicolons' do
       code = subject.new 'a{color:#f00;;}'
       code.remove_trailing_semicolons.should == 'a{color:#f00}'
     end
+  end
 
-    context 'empty selectors' do
-      it 'at beginning' do
-        code = subject.new ' p { }u{color: #f00}'
-        code.remove_empty_selectors.should == 'u{color: #f00}'
-      end
-      it 'at middle' do
-        code = subject.new 'body{color:#000}p { }u{color: #f00}'
-        code.remove_empty_selectors.should == 'body{color:#000}u{color: #f00}'
-      end
+  context '#remove_empty_selectors' do
+    it 'remove empty selectors at beginning' do
+      code = subject.new ' p { }u{color: #f00}'
+      code.remove_empty_selectors.should == 'u{color: #f00}'
     end
+    it 'remove empty selectors at middle' do
+      code = subject.new 'body{color:#000}p { }u{color: #f00}'
+      code.remove_empty_selectors.should == 'body{color:#000}u{color: #f00}'
+    end
+  end
 
-    it 'comments' do
+  context '#remove_comments' do
+    it 'cleanup all comments' do
       code = subject.new '/* comment */'
       code.remove_comments.should == ''
+    end
+    it 'keeps important comments' do
+      code = subject.new '/*! important */'
+      code.remove_comments.should == '/*! important */'
     end
   end
 end
