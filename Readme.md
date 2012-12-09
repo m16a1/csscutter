@@ -1,7 +1,9 @@
 # csscutter
 Ruby CSS minifier inspired by cssmin
 
-### Example of usage
+## Examples of usage
 ```ruby
-CssCutter.optimize('a {color: red; }')
+cutter = CssCutter.new
+cutter.optimize('a {color: red;}')
+# >> "a{color:red}"
 ```
