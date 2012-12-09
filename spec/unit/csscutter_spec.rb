@@ -10,12 +10,16 @@ describe CssCutter do
   let(:empty_fixer) { CssCutter::Fixer.new('') }
   let(:fixer) { CssCutter::Fixer.any_instance }
 
-  it '#clean calls all cleaner methods' do
-    cleaner.should_receive(:remove_whitespace).once.and_return(empty_cleaner)
-    cleaner.should_receive(:remove_trailing_semicolons).once.and_return(empty_cleaner)
-    cleaner.should_receive(:remove_empty_selectors).once.and_return(empty_cleaner)
-    cleaner.should_receive(:remove_comments).once.and_return(empty_cleaner)
-    CssCutter.clean ''
+  let(:default_cutter) { CssCutter.new }
+
+  context '#clean' do
+    it 'calls required cleaner methods' do
+      cleaner.should_receive(:remove_whitespace).once.and_return(empty_cleaner)
+      cleaner.should_receive(:remove_trailing_semicolons).once.and_return(empty_cleaner)
+      cleaner.should_receive(:remove_empty_selectors).once.and_return(empty_cleaner)
+      cleaner.should_receive(:remove_comments).once.and_return(empty_cleaner)
+      default_cutter.clean ''
+    end
   end
 
   it '#simplify calls all simplifier methods' do
@@ -25,23 +29,23 @@ describe CssCutter do
     simplifier.should_receive(:minify_hex).once.and_return(empty_simplifier)
     simplifier.should_receive(:minify_floats).once.and_return(empty_simplifier)
     simplifier.should_receive(:replace_none_value_with_zero).once.and_return(empty_simplifier)
-    CssCutter.simplify ''
+    default_cutter.simplify ''
   end
 
   it '#fix calls all fixer methods' do
     fixer.should_receive(:add_missing_semicolons).once.and_return(empty_fixer)
-    CssCutter.fix ''
+    default_cutter.fix ''
   end
 
   context '#optimize' do
     it 'calls #clean, #simplifier and #fix methods'do
-      CssCutter.should_receive(:clean).once.and_return('')
-      CssCutter.should_receive(:simplify).once.and_return('')
-      CssCutter.should_receive(:fix).once.and_return('')
-      CssCutter.optimize ''
+      default_cutter.should_receive(:clean).once.and_return('')
+      default_cutter.should_receive(:simplify).once.and_return('')
+      default_cutter.should_receive(:fix).once.and_return('')
+      default_cutter.optimize ''
     end
     it 'returns string-compatible value' do
-      CssCutter.optimize('').should be_a_kind_of String
+      default_cutter.optimize('').should be_a_kind_of String
     end
   end
 end

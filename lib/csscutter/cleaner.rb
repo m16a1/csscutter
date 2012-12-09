@@ -1,4 +1,26 @@
 class CssCutter::Cleaner < String
+  DEFAULT_OPTIONS = {
+    keep_important_comments: true
+  }
+
+  def initialize(str, options = {})
+    @options = DEFAULT_OPTIONS.merge options
+    super str
+  end
+
+  def method_missing(name, *args)
+    allowed_methods = [:remove_whitespace, :remove_trailing_semicolons,
+      :remove_empty_selectors, :remove_comments]
+    if allowed_methods.include? name
+      result = send(name, *args)
+      result.instance_variable_set('@options', @options)
+      result
+    else
+      super
+    end
+  end
+
+  private
   def remove_whitespace
     strip
       .gsub(/\s+/, ' ')
@@ -17,6 +39,10 @@ class CssCutter::Cleaner < String
   end
 
   def remove_comments
-    gsub /\/\*[^!].*?\*\//, ''
+    if @options[:keep_important_comments]
+      gsub /\/\*[^!].*?\*\//, ''
+    else
+      gsub /\/\*.*?\*\//, ''
+    end
   end
 end

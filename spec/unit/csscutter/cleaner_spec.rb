@@ -49,5 +49,9 @@ describe CssCutter::Cleaner do
       code = subject.new '/*! important */'
       code.remove_comments.should == '/*! important */'
     end
+    it 'removes important comments when keep_important_comments option is false' do
+      code = subject.new '/*! important */', keep_important_comments: false
+      code.remove_comments.should == ''
+    end
   end
 end

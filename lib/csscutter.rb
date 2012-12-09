@@ -3,20 +3,24 @@ require 'csscutter/fixer'
 require 'csscutter/cleaner'
 require 'csscutter/simplifier'
 
-module CssCutter
-  def self.optimize(code)
+class CssCutter
+  def initialize(options = {})
+    @options = options
+  end
+
+  def optimize(code)
     simplify clean(fix(code))
   end
 
-  def self.clean(code)
-    CssCutter::Cleaner.new(code)
+  def clean(code)
+    CssCutter::Cleaner.new(code, @options)
       .remove_whitespace
       .remove_trailing_semicolons
       .remove_comments
       .remove_empty_selectors
   end
 
-  def self.simplify(code)
+  def simplify(code)
     CssCutter::Simplifier.new(code)
       .remove_units_after_zero
       .replace_zeros
@@ -26,7 +30,7 @@ module CssCutter
       .replace_none_value_with_zero
   end
 
-  def self.fix(code)
+  def fix(code)
     CssCutter::Fixer.new(code)
       .add_missing_semicolons
   end
