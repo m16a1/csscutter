@@ -1,6 +1,5 @@
 require 'rspec'
 require 'simplecov'
-require 'csscutter'
 
 SimpleCov.start do
   add_group 'Libraries', 'lib'
@@ -9,10 +8,10 @@ SimpleCov.start do
   add_group 'Integration tests', 'spec/integration'
 end
 
+require 'csscutter'
+
 RSpec::Matchers.define :have_constant do |const|
   match do |owner|
     (owner.is_a?(Class) ? owner : owner.class).const_defined?(const)
   end
 end
-
-

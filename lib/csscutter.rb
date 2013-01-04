@@ -2,6 +2,7 @@ require 'csscutter/version'
 require 'csscutter/fixer'
 require 'csscutter/cleaner'
 require 'csscutter/simplifier'
+require 'csscutter/whitespace_keeper'
 
 class CssCutter
   def initialize(options = {})
@@ -9,11 +10,14 @@ class CssCutter
   end
 
   def optimize(code)
-    simplify clean(fix(code))
+    keeper = WhitespaceKeeper.new(code, @options)
+    keeper.safely_optimize do |_code|
+      simplify clean(fix(_code))
+    end
   end
 
   def clean(code)
-    CssCutter::Cleaner.new(code, @options)
+    CssCutter::Cleaner.new(code)
       .remove_whitespace
       .remove_trailing_semicolons
       .remove_comments
