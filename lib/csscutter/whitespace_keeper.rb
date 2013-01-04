@@ -19,9 +19,9 @@ class CssCutter::WhitespaceKeeper
 
   private
   def save_contents(code)
-    code.gsub(/(?:contents\s*:\s*)(?<quot>[\"\']).*?\k<quot>/) do |match|
-      @blocks << match
-      "contents:@@#{@blocks.size}@@"
+    code.gsub(/(?<=\Wcontents)(\s*:\s*)([\"\'])(.*?)\2/) do |match|
+      @blocks << $2 + $3 + $2
+      "#{$1}@@#{@blocks.size}@@"
     end
   end
 
@@ -33,6 +33,8 @@ class CssCutter::WhitespaceKeeper
   end
 
   def restore(code)
-    code.gsub(/@@(\d+)@@/) { |match| @blocks[$1.to_i - 1] }
+    result = code.gsub(/@@(\d+)@@/) { |match| @blocks[$1.to_i - 1] }
+    result = restore(result) if /@@(\d+)@@/ =~ result
+    result
   end
 end

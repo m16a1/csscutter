@@ -31,11 +31,21 @@ task :release => :build do
 end
 
 RSpec::Core::RakeTask.new('spec') do |spec|
-  spec.rspec_opts = %w(--format d --color --profile --tag ~performance)
+  spec.rspec_opts = %w(--format d --color --profile)
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-RSpec::Core::RakeTask.new('performance') do |spec|
-  spec.rspec_opts = %w(--format d --color --profile --tag performance)
+RSpec::Core::RakeTask.new('spec:unit') do |spec|
+  spec.rspec_opts = %w(--format d --color --profile --tag ~performance --tag ~integration)
   spec.pattern = 'spec/**/*_spec.rb'
+end
+
+RSpec::Core::RakeTask.new('spec:performance') do |spec|
+  spec.rspec_opts = %w(--format d --color --profile --tag performance)
+  spec.pattern = 'spec/performance/*_spec.rb'
+end
+
+RSpec::Core::RakeTask.new('spec:integration') do |spec|
+  spec.rspec_opts = %w(--format d --color --profile --tag integration)
+  spec.pattern = 'spec/integration/*_spec.rb'
 end

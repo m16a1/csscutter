@@ -15,7 +15,8 @@ describe CssCutter::WhitespaceKeeper do
   it '#save_contents replaces contents property with @@1@@' do
     code = 'div {contents: "some text";display: none}'
     keeper = subject.new code
-    keeper.send(:save_contents, code).should == 'div {contents:@@1@@;display: none}'
+    keeper.send(:save_contents, code).should == 'div {contents: @@1@@;display: none}'
+    keeper.instance_variable_get(:@blocks).should == ['"some text"']
   end
   it '#save_important_comments replace important comments @@1@@' do
     code = '/*! */div {display: none}'
