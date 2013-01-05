@@ -16,6 +16,10 @@ describe CssCutter::Cleaner do
       code = subject.new 'a {color: red} u :hover {color: red}'
       code.remove_whitespace.should == 'a{color:red}u :hover{color:red}'
     end
+    it 'removes whitespace in media selectors' do
+      code = subject.new '@media all and (min-width: 640px)'
+      code.remove_whitespace.should == '@media all and (min-width:640px)'
+    end
   end
 
   context '#remove_trailing_semicolons' do
