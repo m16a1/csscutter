@@ -2,18 +2,22 @@ require 'spec_helper'
 
 describe CssCutter::Simplifier do
   subject { CssCutter::Simplifier }
-  context '#replace_zeros replace' do
-    it 'margin: 0 0 0 0 with margin: 0' do
+  context '#replace_zeros' do
+    it 'replaces margin: 0 0 0 0 with margin: 0' do
       code = subject.new 'body{margin: 0 0 0 0}'
       code.replace_zeros.should == 'body{margin:0}'
     end
-    it 'margin: 0 0 0 with margin: 0' do
+    it 'replaces margin: 0 0 0 with margin: 0' do
       code = subject.new 'body{margin: 0 0  0}'
       code.replace_zeros.should == 'body{margin:0}'
     end
-    it 'margin: 0 0 with margin: 0' do
+    it 'replaces margin: 0 0 with margin: 0' do
       code = subject.new 'body{margin: 0 0}'
       code.replace_zeros.should == 'body{margin:0}'
+    end
+    it 'leaves untoched background-position: 0 0' do
+      code = subject.new 'body{background-position: 0 0}'
+      code.replace_zeros.should == 'body{background-position: 0 0}'
     end
   end
   it '#remove_units_after_zero removes units after zero' do

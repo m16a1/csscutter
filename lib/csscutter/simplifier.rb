@@ -1,6 +1,6 @@
 class CssCutter::Simplifier < String
   def replace_zeros
-    gsub /:\s*(0\s+)+0(?=[;\s\}])/, ':0'
+    gsub /(?<!background-position)\s*:\s*(0\s+)+0(?=[;\s\}])/, ':0'
   end
 
   def remove_units_after_zero

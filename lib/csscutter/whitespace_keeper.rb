@@ -12,8 +12,8 @@ class CssCutter::WhitespaceKeeper
   def safely_optimize(&block)
     _code = [
       :save_contents,
-      @options[:keep_important_comments] ? :save_important_comments: nil
-    ].inject(@code) { |result, method| self.send(method,result) if method }
+      @options[:keep_important_comments] ? :save_important_comments : nil
+    ].inject(@code) { |result, method| method ? send(method,result) : result }
     restore(yield _code)
   end
 

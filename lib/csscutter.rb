@@ -12,12 +12,13 @@ class CssCutter
   def optimize(code)
     keeper = WhitespaceKeeper.new(code, @options)
     keeper.safely_optimize do |_code|
-      simplify clean(fix(_code))
+      [:fix, :clean, :simplify]
+        .inject(_code) { |result, method| self.send(method,result) }
     end
   end
 
   def clean(code)
-    CssCutter::Cleaner.new(code)
+    Cleaner.new(code)
       .remove_whitespace
       .remove_trailing_semicolons
       .remove_comments
@@ -25,7 +26,7 @@ class CssCutter
   end
 
   def simplify(code)
-    CssCutter::Simplifier.new(code)
+    Simplifier.new(code)
       .remove_units_after_zero
       .replace_zeros
       .convert_rgb_to_hex
@@ -35,7 +36,7 @@ class CssCutter
   end
 
   def fix(code)
-    CssCutter::Fixer.new(code)
+    Fixer.new(code)
       .add_missing_semicolons
   end
 end
