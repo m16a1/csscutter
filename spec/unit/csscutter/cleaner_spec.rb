@@ -7,10 +7,11 @@ describe CssCutter::Cleaner do
     it 'removes unnecessary white space' do
       code = subject.new <<-CSS
       a {
-        color: red;
+        color: red ;
+        background: white ;
       }
       CSS
-      code.remove_whitespace.should == 'a{color:red;}'
+      code.remove_whitespace.should == 'a{color:red;background:white;}'
     end
     it "doesn't remove space before pseudoselectors" do
       code = subject.new 'a {color: red} u :hover {color: red}'

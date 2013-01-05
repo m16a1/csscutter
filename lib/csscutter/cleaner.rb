@@ -4,9 +4,9 @@ class CssCutter::Cleaner < String
       .gsub(/\s+/, ' ')
       .gsub(/\s*\{\s*/, '{')
       .gsub(/\s*\}\s*/, '}')
-      .gsub(/(\{[^\}]*)(\S)\s*:\s*/, '\1\2:')
+      .gsub(/(\S+)\s*:\s*([^\{\};]+?)(?=[\};])/, '\1:\2')
       .gsub(/(\([^\)]*)(\S)\s*:\s*/, '\1\2:')
-      .gsub(/\s*,\s*/, ',')
+      .gsub(/\s*([,;])\s*/, '\1')
   end
 
   def remove_trailing_semicolons
