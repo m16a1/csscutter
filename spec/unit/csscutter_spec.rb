@@ -7,9 +7,6 @@ describe CssCutter do
   let(:empty_simplifier) { CssCutter::Simplifier.new('') }
   let(:simplifier) { CssCutter::Simplifier.any_instance }
 
-  let(:empty_fixer) { CssCutter::Fixer.new('') }
-  let(:fixer) { CssCutter::Fixer.any_instance }
-
   let(:default_cutter) { CssCutter.new }
 
   context '#clean' do
@@ -32,16 +29,10 @@ describe CssCutter do
     default_cutter.simplify ''
   end
 
-  it '#fix calls all fixer methods' do
-    fixer.should_receive(:add_missing_semicolons).once.and_return(empty_fixer)
-    default_cutter.fix ''
-  end
-
   context '#optimize' do
-    it 'calls #clean, #simplifier and #fix methods'do
+    it 'calls #clean and #simplify methods'do
       default_cutter.should_receive(:clean).once.and_return('')
       default_cutter.should_receive(:simplify).once.and_return('')
-      default_cutter.should_receive(:fix).once.and_return('')
       default_cutter.optimize ''
     end
     it 'returns string-compatible value' do

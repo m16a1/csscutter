@@ -1,5 +1,4 @@
 require 'csscutter/version'
-require 'csscutter/fixer'
 require 'csscutter/cleaner'
 require 'csscutter/simplifier'
 require 'csscutter/whitespace_keeper'
@@ -12,7 +11,7 @@ class CssCutter
   def optimize(code)
     keeper = WhitespaceKeeper.new(code, @options)
     keeper.safely_optimize do |_code|
-      [:fix, :clean, :simplify]
+      [:clean, :simplify]
         .inject(_code) { |result, method| self.send(method,result) }
     end
   end
@@ -33,10 +32,5 @@ class CssCutter
       .minify_hex
       .minify_floats
       .replace_none_value_with_zero
-  end
-
-  def fix(code)
-    Fixer.new(code)
-      .add_missing_semicolons
   end
 end
