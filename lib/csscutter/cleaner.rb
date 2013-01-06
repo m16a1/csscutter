@@ -15,6 +15,7 @@ class CssCutter::Cleaner < String
       .gsub(' $=', '$=')
       .gsub(' *=', '*=')
       .gsub(' |=', '|=')
+      .gsub(' ^=', '^=')
   end
 
   def remove_trailing_semicolons

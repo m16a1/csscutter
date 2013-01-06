@@ -66,6 +66,15 @@ describe 'selectors', integration: true do
       CSS
       cutter.optimize(code).should == 'a{color:red}p[data-z|="bar"]{padding:0}'
     end
+    it 'E[foo^="bar"]' do
+      code = <<-CSS
+        a {color: red}
+        p[ data-z ^= "bar" ] {
+          padding: 0
+        }
+      CSS
+      cutter.optimize(code).should == 'a{color:red}p[data-z^="bar"]{padding:0}'
+    end
   end
   context 'pseudo-classes' do
     it 'E:root' do
