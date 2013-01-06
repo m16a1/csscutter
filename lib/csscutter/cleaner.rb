@@ -7,6 +7,8 @@ class CssCutter::Cleaner < String
       .gsub(/(\S+)\s*:\s*([^\{\};]+?)(?=[\};])/, '\1:\2')
       .gsub(/(\([^\)]*)(\S)\s*:\s*/, '\1\2:')
       .gsub(/\s*([,;])\s*/, '\1')
+      .gsub('( ', '(')
+      .gsub(' )', ')')
   end
 
   def remove_trailing_semicolons
