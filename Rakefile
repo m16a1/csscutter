@@ -13,7 +13,7 @@ end
 
 task :install => :build do
   require 'csscutter/version'
-  system "sudo gem install csscutter-#{CssCutter::VERSION}.gem"
+  system "gem install ./csscutter-#{CssCutter::VERSION}.gem"
 end
 
 task :clean do
