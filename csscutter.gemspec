@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.description = 'CSS minifier inspired by cssmin'
   s.authors     = ['m16a1']
   s.email       = 'a741su@gmail.com'
-  s.files       = Dir['lib/**/*', 'spec/**/*', 'License']
+  s.files       = Dir['lib/**/*', 'License']
   s.homepage    = 'https://github.com/m16a1/csscutter'
 end

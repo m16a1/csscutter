@@ -1,3 +1,3 @@
 class CssCutter
-  VERSION = '0.3.alpha'
+  VERSION = '0.3.1.alpha'
 end

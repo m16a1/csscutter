@@ -1,5 +1,5 @@
 # csscutter
-Ruby CSS minifier inspired by cssmin
+Ruby CSS minifier inspired by cssmin.
 
 ## Examples of usage
 ```ruby
