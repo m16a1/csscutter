@@ -49,3 +49,5 @@ RSpec::Core::RakeTask.new('spec:integration') do |spec|
   spec.rspec_opts = %w(--format d --color --profile --tag integration)
   spec.pattern = 'spec/integration/*_spec.rb'
 end
+
+task :default => :'spec:unit'
