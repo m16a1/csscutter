@@ -31,6 +31,11 @@ class CssCutter::Simplifier < String
     gsub /((\{|;)\s*\w+\s*):(\s*)none(\s*(;|\}))/, '\1:\30\4'
   end
 
+  def minify_font_weight
+    gsub(/(font|font-weight)(\s*):([^;\}]*\W)?normal([\s;\}])/, '\1\2:\3400\4')
+    .gsub(/(font|font-weight)(\s*):([^;\}]*\W)?bold([\s;\}])/, '\1\2:\3700\4')
+  end
+
   private
   def dec_to_hex(number)
     "%02x" % number.to_i
