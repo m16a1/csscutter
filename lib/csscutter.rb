@@ -18,9 +18,9 @@ class CssCutter
 
   def clean(code)
     Cleaner.new(code)
+      .remove_comments
       .remove_whitespace
       .remove_trailing_semicolons
-      .remove_comments
       .remove_empty_selectors
   end
 
