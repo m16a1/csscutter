@@ -65,7 +65,7 @@ describe CssCutter::Simplifier do
       code = subject.new 'b {font : bold small-caps 12px/14px Arial}'
       code.minify_font_weight.should == 'b {font : 700 small-caps 12px/14px Arial}'
     end
-    it 'd' do
+    it 'converts font-weight only in font declaration' do
       code = subject.new 'b {font :normal small-caps 12px/14px normal-font-face}'
       code.minify_font_weight.should == 'b {font :400 small-caps 12px/14px normal-font-face}'
     end
