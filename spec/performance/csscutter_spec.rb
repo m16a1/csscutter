@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ruby-prof'
 
 describe CssCutter do
-  let!(:css_code) { open('./spec/performance/heavy.css').read }
+  let(:css_code) { open('./spec/performance/heavy.css').read }
   around(:each) do |example|
     RubyProf.start
     example.run    

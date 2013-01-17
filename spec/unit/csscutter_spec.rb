@@ -26,6 +26,7 @@ describe CssCutter do
     simplifier.should_receive(:minify_hex).once.and_return(empty_simplifier)
     simplifier.should_receive(:minify_floats).once.and_return(empty_simplifier)
     simplifier.should_receive(:replace_none_value_with_zero).once.and_return(empty_simplifier)
+    simplifier.should_receive(:minify_font_weight).once.and_return(empty_simplifier)
     default_cutter.simplify ''
   end
 

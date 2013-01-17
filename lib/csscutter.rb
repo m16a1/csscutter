@@ -32,5 +32,6 @@ class CssCutter
       .minify_hex
       .minify_floats
       .replace_none_value_with_zero
+      .minify_font_weight
   end
 end
