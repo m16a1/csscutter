@@ -43,7 +43,7 @@ class CssCutter::Cleaner < String
   end
 
   def remove_in_selectors
-    gsub(/\s*([,;=\+\>~])\s*/, '\1')
+    gsub(/\s?([,;=\+\>~])\s?/, '\1')
   end
 
   def remove_in_attribute_selectors
